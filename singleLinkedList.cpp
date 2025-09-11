@@ -111,14 +111,105 @@ Node* insertpos(Node* head, int val){
     return head;
 }
 
+Node* deleteBeg(Node *head){
+    if(head==nullptr){
+        cout<<"Linked List is empty nothing to delete";
+    }
+    else{
+        Node*temp=head;
+        head=head->next;
+        delete(temp);
+        return head;
+    }
+}
+
+Node*deleteTail(Node *head){
+    if(head==nullptr){
+        cout<<"Linked List is empty nothing to delete";
+    }
+    else{
+        Node*temp=head;
+        Node *prev=head;
+        while(temp->next!=nullptr){
+            prev=temp;
+            temp=temp->next;
+        }
+        prev->next=nullptr;
+        delete(temp);
+        return head;    
+    }
+}
+
+Node *deleteAfterValue(Node* head){
+     if(head==nullptr){
+        cout<<"Linked List is empty nothing to delete";
+    }
+    else{
+        Node*temp=head;
+        Node*prev=head;
+        int info;
+        cout<<"Enter the value you want to delete"<<endl;
+        cin>>info;
+        while(temp->data!=info){
+            prev=temp;
+            temp=temp->next;
+        }
+        prev->next=temp->next;
+        delete(temp);
+        return head;
+    }
+}
+
+
+Node* deleteAfterPos(Node* head){
+    if(head==nullptr){
+        cout<<"Linked List is empty nothing to delete";
+    }
+    Node* temp=head;
+    Node* prev=head;
+    int pos;
+    cout<<"Enter the position from where you want to delete"<<endl;
+    cin>>pos;
+    int cnt=0;
+    while(temp->next!=nullptr){
+        cnt++;
+
+        if(cnt==pos){
+            prev->next=temp->next;
+            delete(temp);
+            return head;
+        }
+        prev=temp;
+        temp=temp->next;
+    }
+}
+
 int main(){
     vector<int>nums={4,6,2,3};
     Node* head=convert2LL(nums);
     head=inserthead(head,90);
     insertail(head,46);
-     trav(head);
-    insertpos(head,22);
+    //  trav(head);
+    // insertpos(head,22);
+    // trav(head);
     trav(head);
+//    head= deleteBeg(head);
+//    cout<<"Linked list after deletion from beginning"<<endl;
+
+    // head=deleteTail(head);
+    // cout<<"Linked List after deletion from end"<<endl;
+    //  trav(head);
+
+
+
+    // head=deleteAfterValue(head);
+    // cout<<"Linked List after deletion "<<endl;
+    //  trav(head);
+
+
+    head=deleteAfterPos(head);
+    cout<<"Linked List after deletion "<<endl;
+     trav(head);
    
     
 }
