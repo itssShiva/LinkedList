@@ -123,7 +123,75 @@ Node* insertionAtK(Node* head,int k){
 }
 
 
+//Deletion at beginning
+Node* deletionAtBeg(Node* head){
+    if(head==nullptr){
+        cout<<"Linked List is empty";
+    }
+    else{
+        Node* temp=head;
+        head=head->next;
+        delete temp;
+    }
+    return head;
+}
 
+//Deletion at Tail
+Node* deletionAtTail(Node*head){
+     if(head==nullptr){
+        cout<<"Linked List is empty";
+    }
+    else{
+        Node* temp=head;
+        Node* prev=head;
+        while(temp->next!=nullptr){
+            prev=temp;
+            temp=temp->next;
+        }
+        prev->next=nullptr;
+        delete temp;
+    }
+    return head;
+}
+
+
+//deleteion after kth pos
+Node* deletionAtK(Node* head,int k){
+    if(head==nullptr){
+        cout<<"Linked List is empty";
+    }
+    else{
+        Node*temp=head;
+    Node*prev=head;
+    Node*front=head;
+    int cnt=1;
+    while(temp!=nullptr){
+        if(cnt==k)break;
+        temp=temp->next;
+        cnt++;
+    }
+   front=temp->next;
+   prev=temp->back;
+   if(prev==nullptr&&front==nullptr){
+    return nullptr;
+   }
+   else if(prev==nullptr){
+    return deletionAtBeg(head);
+   }
+   else if(front==nullptr){
+    return deletionAtTail(head);
+   }
+   else{
+    prev->next=front;
+   front->back=prev;
+   delete temp;
+   }
+   
+    }
+    return head;
+
+
+}
 
 int main(){
     vector<int>nums={4,6,2,3};
@@ -131,7 +199,11 @@ int main(){
     // head= insertionAtHead(head);
     // head= insertionAtTail(head);
     trav(head);
-    head=insertionAtK(head,2);
+    // head=insertionAtK(head,2);
+    // head=deletionAtBeg(head);
+    // head=deletionAtTail(head);
+    head=deletionAtK(head,1);
+    cout<<"After deletion"<<endl;
      trav(head);
 
 }
